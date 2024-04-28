@@ -1,0 +1,19 @@
+# Remove '#' to select a file.
+
+# gpt-engineer can only read selected files. Including irrelevant files will degrade performance, cost additional tokens and potentially overflow token limit.
+
+[files]
+# "tailwind.config.mjs" = "selected"
+# "package.json" = "selected"
+# "astro.config.mjs" = "selected"
+# "package-lock.json" = "selected"
+# "tsconfig.json" = "selected"
+# "README.md" = "selected"
+# "src/env.d.ts" = "selected"
+# "src/assets/houston.webp" = "selected"
+# "src/content/config.ts" = "selected"
+# "src/content/docs/index.mdx" = "selected"
+# "src/content/docs/guides/example.md" = "selected"
+# "src/content/docs/reference/example.md" = "selected"
+# "public/favicon.svg" = "selected"
+# 

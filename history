@@ -1,0 +1,3 @@
+- create a mechanism using typescript to read from a certain code base then parse the code from all folders and files in that code base based on the coding language
+- do the instruction above in a way that will be utilized to send all the codebase info to an api. The information will need to be sent in a way that knows in which file and folder each code piece belongs
+
