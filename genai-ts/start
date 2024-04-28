@@ -1,0 +1,13 @@
+This will read all source files in the `src` directory, send them to the OpenAI API, and generate documentation in the `docs` directory.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+For questions or comments, please email me at [your-email@example.com](mailto:your-email@example.com).

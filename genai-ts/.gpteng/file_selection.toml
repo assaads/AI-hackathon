@@ -1,0 +1,15 @@
+# Remove '#' to select a file.
+
+# gpt-engineer can only read selected files. Including irrelevant files will degrade performance, cost additional tokens and potentially overflow token limit.
+
+[files]
+# "package.json" = "selected"
+# "Entrypoint)" = "selected"
+# "Parser)" = "selected"
+# "Client)" = "selected"
+# "run.sh" = "selected"
+# "tsconfig.json" = "selected"
+# "Reader)" = "selected"
+# "docs/index.mdx" = "selected"
+# "docs/guides/example.md" = "selected"
+# "docs/reference/example.md" = "selected"

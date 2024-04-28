@@ -132,3 +132,1072 @@ npm install
 npm run build
 npm start
 ```
+
+2024-04-28T00:55:08.057123
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: main.py
+1 ## Contributing
+2 
+3 Contributions are welcome! Please feel free to submit a pull request.
+4 
+5 ## License
+6 
+7 This project is licensed under the MIT License - see the LICENSE file for details.
+8 
+9 ## Contact
+10 
+11 For any queries, you can reach out to [your-email@example.com](mailto:your-email@example.com).
+
+File: openai_api.py
+1 import openai
+2 
+3 def generate_documentation(code):
+4     """
+5     Sends code to OpenAI API and retrieves generated documentation.
+6     """
+7     openai.api_key = 'your_openai_api_key_here'
+8     
+9     response = openai.Completion.create(
+10         engine="davinci-codex",
+11         prompt=f"Generate documentation for the following code:\n\n{code}",
+12         temperature=0.5,
+13         max_tokens=1000,
+14         top_p=1.0,
+15         frequency_penalty=0.0,
+16         presence_penalty=0.0
+17     )
+18     
+19     return response.choices[0].text.strip()
+
+File: doc_organizer.py
+1 import os
+2 
+3 def save_documentation(documentation):
+4     """
+5     Saves the generated documentation in a structured format within the 'docs' folder.
+6     """
+7     docs_path = "docs"
+8     if not os.path.exists(docs_path):
+9         os.makedirs(docs_path)
+10     
+11     with open(os.path.join(docs_path, "API_Documentation.md"), "w") as doc_file:
+12         doc_file.write(documentation)
+
+File: requirements.txt
+1 ## Example Usage
+2 
+3 To generate documentation for your project, run:
+
+File: README.md
+1 # Project Documentation Generator
+2 
+3 This project parses source code, sends it to the OpenAI API to generate documentation, and organizes the documentation in a structured format.
+4 
+5 ## Installation
+6 
+7 To install the necessary dependencies, run:
+
+File: LICENSE
+1 MIT License
+2 
+3 Copyright (c) 2023
+4 
+5 Permission is hereby granted, free of charge, to any person obtaining a copy
+6 of this software and associated documentation files (the "Software"), to deal
+7 in the Software without restriction, including without limitation the rights
+8 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+9 copies of the Software, and to permit persons to whom the Software is
+10 furnished to do so, subject to the following conditions:
+
+```
+
+================================== Ai Message ==================================
+
+```bash
+# Install dependencies
+pip install --user -r requirements.txt
+
+# Run the codebase parts in parallel
+python main.py & python openai_api.py & python doc_organizer.py
+```
+
+2024-04-28T00:59:56.440907
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: package.json
+1 {
+2   "name": "codebase-documentation-generator",
+3   "version": "1.0.0",
+4   "description": "Generates documentation for a codebase using OpenAI API.",
+5   "main": "src/index.ts",
+6   "scripts": {
+7     "build": "tsc",
+8     "start": "ts-node src/index.ts"
+9   },
+10   "dependencies": {
+11     "@openai/api": "^1.0.0",
+12     "typescript": "^4.0.0",
+13     "ts-node": "^9.0.0",
+14     "fs-extra": "^9.0.1"
+15   },
+16   "devDependencies": {
+17     "@types/node": "^14.0.0"
+18   }
+19 }
+
+File: src/services/OpenAIService.ts
+1 import { Configuration, OpenAIApi } from "@openai/api";
+2 
+3 export class OpenAIService {
+4   private openai: OpenAIApi;
+5 
+6   constructor(apiKey: string) {
+7     const configuration = new Configuration({
+8       apiKey: apiKey,
+9     });
+10     this.openai = new OpenAIApi(configuration);
+11   }
+12 
+13   async generateDocumentation(code: string): Promise<string> {
+14     const response = await this.openai.createCompletion({
+15       model: "text-davinci-002",
+16       prompt: `Generate documentation for the following code:\n\n${code}`,
+17       temperature: 0.7,
+18       max_tokens: 2048,
+19       top_p: 1.0,
+20       frequency_penalty: 0.0,
+21       presence_penalty: 0.0,
+22     });
+23 
+24     return response.data.choices[0].text.trim();
+25   }
+26 }
+
+File: src/utils/FileSystemUtil.ts
+1 import * as fs from 'fs-extra';
+2 import * as path from 'path';
+3 
+4 export class FileSystemUtil {
+5   static async createFolderStructure(basePath: string, structure: any): Promise<void> {
+6     for (const key in structure) {
+7       const currentPath = path.join(basePath, key);
+8       if (typeof structure[key] === 'object') {
+9         await fs.ensureDir(currentPath);
+10         await this.createFolderStructure(currentPath, structure[key]);
+11       } else {
+12         await fs.outputFile(currentPath, structure[key]);
+13       }
+14     }
+15   }
+16 }
+
+File: src/CodeParser.ts
+1 export class CodeParser {
+2   static parse(code: string): string {
+3     // Placeholder for actual parsing logic
+4     // For simplicity, we'll just return the code as is
+5     return code;
+6   }
+7 }
+
+File: src/DocumentationGenerator.ts
+1 import { OpenAIService } from './services/OpenAIService';
+2 import { FileSystemUtil } from './utils/FileSystemUtil';
+3 
+4 export class DocumentationGenerator {
+5   private openAIService: OpenAIService;
+6 
+7   constructor(apiKey: string) {
+8     this.openAIService = new OpenAIService(apiKey);
+9   }
+10 
+11   async generateForCodebase(code: string, outputPath: string): Promise<void> {
+12     const parsedCode = CodeParser.parse(code);
+13     const documentation = await this.openAIService.generateDocumentation(parsedCode);
+14 
+15     const docsStructure = {
+16       'README.md': 'Generated Documentation\n\n' + documentation,
+17       // Additional structure can be defined here based on the documentation content
+18     };
+19 
+20     await FileSystemUtil.createFolderStructure(outputPath, docsStructure);
+21   }
+22 }
+
+File: src/index.ts
+1 import { DocumentationGenerator } from './DocumentationGenerator';
+2 
+3 async function main() {
+4   const apiKey = process.env.OPENAI_API_KEY || '';
+5   const code = `// Example source code to document`;
+6   const outputPath = './docs';
+7 
+8   const documentationGenerator = new DocumentationGenerator(apiKey);
+9   await documentationGenerator.generateForCodebase(code, outputPath);
+10 }
+11 
+12 main().catch(console.error);
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+npm install
+npm run build
+OPENAI_API_KEY="your_api_key" npm run start
+```
+
+2024-04-28T01:04:56.681380
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: package.json
+1 {
+2   "name": "codebase-documentation-generator",
+3   "version": "1.0.0",
+4   "description": "Generates documentation for a codebase using OpenAI API.",
+5   "main": "dist/main.js",
+6   "scripts": {
+7     "build": "tsc",
+8     "start": "node dist/main.js"
+9   },
+10   "dependencies": {
+11     "axios": "^0.27.2",
+12     "dotenv": "^16.0.0",
+13     "typescript": "^4.7.4"
+14   },
+15   "devDependencies": {
+16     "@types/node": "^18.0.0"
+17   }
+18 }
+
+File: tsconfig.json
+1 {
+2   "compilerOptions": {
+3     "target": "es6",
+4     "module": "commonjs",
+5     "outDir": "./dist",
+6     "strict": true,
+7     "esModuleInterop": true
+8   },
+9   "include": ["src/**/*"],
+10   "exclude": ["node_modules", "**/*.spec.ts"]
+11 }
+
+File: .env
+1 OPENAI_API_KEY=your_openai_api_key_here
+
+File: src/main.ts
+1 import { OpenAIService } from './openaiService';
+2 import { CodeParser } from './codeParser';
+3 import { DocumentationGenerator } from './documentationGenerator';
+4 import * as dotenv from 'dotenv';
+5 
+6 dotenv.config();
+7 
+8 const main = async () => {
+9   const openAIService = new OpenAIService(process.env.OPENAI_API_KEY || '');
+10   const codeParser = new CodeParser();
+11   const documentationGenerator = new DocumentationGenerator(openAIService);
+12 
+13   // Example source code to parse and document
+14   const sourceCode = `function add(a: number, b: number): number { return a + b; }`;
+15 
+16   const parsedCode = codeParser.parse(sourceCode);
+17   const documentation = await documentationGenerator.generateDocumentation(parsedCode);
+18 
+19   console.log(documentation);
+20 };
+21 
+22 main().catch(console.error);
+
+File: src/openaiService.ts
+1 import axios from 'axios';
+2 
+3 export class OpenAIService {
+4   private apiKey: string;
+5 
+6   constructor(apiKey: string) {
+7     this.apiKey = apiKey;
+8   }
+9 
+10   async generateDocumentation(prompt: string): Promise<string> {
+11     try {
+12       const response = await axios.post(
+13         'https://api.openai.com/v1/completions',
+14         {
+15           model: 'text-davinci-003',
+16           prompt,
+17           temperature: 0.7,
+18           max_tokens: 2048,
+19           top_p: 1.0,
+20           frequency_penalty: 0.0,
+21           presence_penalty: 0.0,
+22         },
+23         {
+24           headers: {
+25             'Authorization': `Bearer ${this.apiKey}`,
+26             'Content-Type': 'application/json',
+27           },
+28         },
+29       );
+30 
+31       return response.data.choices[0].text;
+32     } catch (error) {
+33       console.error('Error generating documentation:', error);
+34       throw error;
+35     }
+36   }
+37 }
+
+File: src/codeParser.ts
+1 export class CodeParser {
+2   parse(sourceCode: string): string {
+3     // Simple placeholder for code parsing logic
+4     // In a real-world scenario, this would involve more complex parsing and analysis
+5     return `Parse this code: ${sourceCode}`;
+6   }
+7 }
+
+File: src/documentationGenerator.ts
+1 import { OpenAIService } from './openaiService';
+2 
+3 export class DocumentationGenerator {
+4   private openAIService: OpenAIService;
+5 
+6   constructor(openAIService: OpenAIService) {
+7     this.openAIService = openAIService;
+8   }
+9 
+10   async generateDocumentation(parsedCode: string): Promise<string> {
+11     const prompt = `Generate documentation for the following code:\n\n${parsedCode}`;
+12     return this.openAIService.generateDocumentation(prompt);
+13   }
+14 }
+
+File: src/utils.ts
+1 // Utility functions can be added here as needed.
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+npm install
+npm run build
+npm start
+```
+
+2024-04-28T01:07:04.815620
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: package.json
+1 {
+2   "name": "codebase-documentation-generator",
+3   "version": "1.0.0",
+4   "description": "Generates documentation for a codebase using OpenAI API.",
+5   "main": "dist/main.js",
+6   "scripts": {
+7     "build": "tsc",
+8     "start": "node dist/main.js"
+9   },
+10   "dependencies": {
+11     "axios": "^0.27.2",
+12     "dotenv": "^16.0.1"
+13   },
+14   "devDependencies": {
+15     "@types/node": "^18.0.0",
+16     "typescript": "^4.7.4"
+17   }
+18 }
+
+File: .env
+1 OPENAI_API_KEY=your_openai_api_key_here
+
+File: tsconfig.json
+1 {
+2   "compilerOptions": {
+3     "target": "es6",
+4     "module": "commonjs",
+5     "outDir": "./dist",
+6     "strict": true,
+7     "esModuleInterop": true
+8   },
+9   "include": ["src/**/*"],
+10   "exclude": ["node_modules", "**/*.spec.ts"]
+11 }
+
+File: src/types.ts
+1 export interface OpenAIResponse {
+2   choices: Array<{
+3     text: string;
+4   }>;
+5 }
+6 
+7 export interface Documentation {
+8   readme: string;
+9   apiDocumentation: string[];
+10 }
+
+File: src/openaiService.ts
+1 import axios from 'axios';
+2 import { OpenAIResponse } from './types';
+3 
+4 const OPENAI_URL = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+5 
+6 export class OpenAIService {
+7   apiKey: string;
+8 
+9   constructor(apiKey: string) {
+10     this.apiKey = apiKey;
+11   }
+12 
+13   async generateDocumentation(prompt: string): Promise<OpenAIResponse> {
+14     try {
+15       const response = await axios.post(
+16         OPENAI_URL,
+17         {
+18           prompt,
+19           temperature: 0.5,
+20           max_tokens: 2048,
+21           top_p: 1.0,
+22           frequency_penalty: 0.0,
+23           presence_penalty: 0.0,
+24         },
+25         {
+26           headers: {
+27             'Content-Type': 'application/json',
+28             'Authorization': `Bearer ${this.apiKey}`
+29           }
+30         }
+31       );
+32       return response.data;
+33     } catch (error) {
+34       console.error('Error calling OpenAI API:', error);
+35       throw error;
+36     }
+37   }
+38 }
+
+File: src/fileReader.ts
+1 import { promises as fs } from 'fs';
+2 import path from 'path';
+3 
+4 export class FileReader {
+5   async readSourceFiles(directory: string): Promise<string[]> {
+6     let filesContent: string[] = [];
+7     const files = await fs.readdir(directory);
+8 
+9     for (const file of files) {
+10       const filePath = path.join(directory, file);
+11       const stat = await fs.stat(filePath);
+12 
+13       if (stat.isDirectory()) {
+14         filesContent = filesContent.concat(await this.readSourceFiles(filePath));
+15       } else if (stat.isFile()) {
+16         const content = await fs.readFile(filePath, 'utf8');
+17         filesContent.push(content);
+18       }
+19     }
+20 
+21     return filesContent;
+22   }
+23 }
+
+File: src/docGenerator.ts
+1 import { promises as fs } from 'fs';
+2 import path from 'path';
+3 import { Documentation } from './types';
+4 
+5 export class DocGenerator {
+6   async generateDocs(documentation: Documentation, outputPath: string): Promise<void> {
+7     await fs.mkdir(outputPath, { recursive: true });
+8 
+9     // Generate README.md
+10     await fs.writeFile(path.join(outputPath, 'README.md'), documentation.readme);
+11 
+12     // Generate API documentation
+13     for (const doc of documentation.apiDocumentation) {
+14       await fs.writeFile(path.join(outputPath, `API_${Date.now()}.md`), doc);
+15     }
+16   }
+17 }
+
+File: src/main.ts
+1 import dotenv from 'dotenv';
+2 import { OpenAIService } from './openaiService';
+3 import { FileReader } from './fileReader';
+4 import { DocGenerator } from './docGenerator';
+5 
+6 dotenv.config();
+7 
+8 const main = async () => {
+9   const apiKey = process.env.OPENAI_API_KEY;
+10   if (!apiKey) {
+11     console.error('OpenAI API key is not set.');
+12     process.exit(1);
+13   }
+14 
+15   const openAIService = new OpenAIService(apiKey);
+16   const fileReader = new FileReader();
+17   const docGenerator = new DocGenerator();
+18 
+19   const sourceFilesContent = await fileReader.readSourceFiles('./src');
+20   const prompt = sourceFilesContent.join('\n\n');
+21 
+22   const openAIResponse = await openAIService.generateDocumentation(prompt);
+23   const documentation = {
+24     readme: openAIResponse.choices[0].text,
+25     apiDocumentation: openAIResponse.choices.slice(1).map(choice => choice.text),
+26   };
+27 
+28   await docGenerator.generateDocs(documentation, './docs');
+29 };
+30 
+31 main().catch(console.error);
+
+File: README.md
+1 # Codebase Documentation Generator
+2 
+3 This project generates documentation for a codebase using the OpenAI API.
+4 
+5 ## Installation
+6 
+7 1. Clone the repository.
+8 2. Run `npm install` to install dependencies.
+9 3. Set your OpenAI API key in the `.env` file.
+10 
+11 ## Example/Tutorial
+12 
+13 To generate documentation for your project, run:
+
+File: start
+1 This will read all source files in the `src` directory, send them to the OpenAI API, and generate documentation in the `docs` directory.
+2 
+3 ## Contributing
+4 
+5 Contributions are welcome! Please open an issue or submit a pull request.
+6 
+7 ## License
+8 
+9 This project is licensed under the MIT License.
+10 
+11 ## Contact
+12 
+13 For questions or comments, please email me at [your-email@example.com](mailto:your-email@example.com).
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+npm install
+npm run build
+npm start
+```
+
+2024-04-28T01:13:38.592795
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: requirements.txt
+1 Flask==2.0.1
+
+File: README.md
+1 # Task Manager API
+2 
+3 A simple API for managing tasks using Flask.
+4 
+5 ## Installation
+6 
+7 1. Clone this repository.
+8 2. Install dependencies: `pip install -r requirements.txt`
+9 3. Run the application: `python -m flask run`
+10 
+11 ## Example/Tutorial
+12 
+13 To add a task:
+
+File: }
+1 To list tasks:
+
+File: /tasks
+1 To delete a task:
+
+File: /tasks/task_id
+1 ## API Documentation
+2 
+3 ### POST /tasks
+4 
+5 - **Description**: Adds a new task.
+6 - **Parameters**: JSON object containing `description` of the task.
+7 - **Returns**: JSON object with the added task, including its `id`.
+8 
+9 ### GET /tasks
+10 
+11 - **Description**: Lists all tasks.
+12 - **Returns**: JSON list of tasks.
+13 
+14 ### DELETE /tasks/<task_id>
+15 
+16 - **Description**: Deletes a specified task by `id`.
+17 - **Parameters**: `task_id` in the URL path.
+18 - **Returns**: JSON object with a message indicating success or failure.
+19 
+20 ## Contributing
+21 
+22 Contributions are welcome! Please open an issue or submit a pull request.
+23 
+24 ## License
+25 
+26 This project is licensed under the MIT License - see the LICENSE file for details.
+27 
+28 ## Contact
+29 
+30 For any queries, you can reach me at [your-email@example.com](mailto:your-email@example.com).
+
+File: app/__init__.py
+1 from flask import Flask
+2 from .routes import configure_routes
+3 
+4 def create_app():
+5     app = Flask(__name__)
+6     configure_routes(app)
+7     return app
+
+File: app/routes.py
+1 from flask import request, jsonify
+2 
+3 tasks = []
+4 
+5 def configure_routes(app):
+6 
+7     @app.route('/tasks', methods=['POST'])
+8     def add_task():
+9         task = request.json
+10         task['id'] = len(tasks) + 1
+11         tasks.append(task)
+12         return jsonify(task), 201
+13 
+14     @app.route('/tasks', methods=['GET'])
+15     def list_tasks():
+16         return jsonify(tasks), 200
+17 
+18     @app.route('/tasks/<int:task_id>', methods=['DELETE'])
+19     def delete_task(task_id):
+20         global tasks
+21         tasks = [task for task in tasks if task['id'] != task_id]
+22         return jsonify({'message': 'Task deleted successfully'}), 200
+
+File: app/models.py
+1 # For simplicity, tasks are stored in a list in routes.py. This file is a placeholder for future database integration.
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+#!/bin/bash
+
+# a) Install dependencies
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# b) Run the application
+FLASK_APP=app/__init__.py python -m flask run
+```
+
+2024-04-28T01:14:47.277707
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: package.json
+1 {
+2   "name": "task-manager-api",
+3   "version": "1.0.0",
+4   "description": "A simple task manager API built with TypeScript.",
+5   "main": "dist/index.js",
+6   "scripts": {
+7     "build": "tsc",
+8     "start": "node dist/index.js"
+9   },
+10   "dependencies": {},
+11   "devDependencies": {
+12     "typescript": "^4.0.0"
+13   },
+14   "author": "Your Name <your.email@example.com>",
+15   "license": "MIT"
+16 }
+
+File: tsconfig.json
+1 {
+2   "compilerOptions": {
+3     "target": "es6",
+4     "module": "commonjs",
+5     "outDir": "./dist",
+6     "strict": true,
+7     "esModuleInterop": true
+8   },
+9   "include": ["src/**/*"]
+10 }
+
+File: src/index.ts
+1 import { TaskManager } from "./taskManager";
+2 
+3 const taskManager = new TaskManager();
+4 
+5 taskManager.addTask("Task 1", "Description for Task 1");
+6 taskManager.addTask("Task 2", "Description for Task 2");
+7 
+8 console.log(taskManager.listTasks());
+
+File: src/taskManager.ts
+1 interface Task {
+2   title: string;
+3   description: string;
+4 }
+5 
+6 export class TaskManager {
+7   private tasks: Task[] = [];
+8 
+9   /**
+10    * Adds a task to the task list.
+11    * @param title The title of the task.
+12    * @param description The description of the task.
+13    */
+14   addTask(title: string, description: string): void {
+15     this.tasks.push({ title, description });
+16   }
+17 
+18   /**
+19    * Lists all tasks.
+20    * @returns An array of tasks.
+21    */
+22   listTasks(): Task[] {
+23     return this.tasks;
+24   }
+25 }
+
+File: README.md
+1 # Task Manager API
+2 
+3 A simple task manager API built with TypeScript.
+4 
+5 ## Installation
+6 
+7 1. Clone the repository.
+8 2. Run `npm install` to install dependencies.
+9 3. Run `npm run build` to compile TypeScript to JavaScript.
+10 4. Run `npm start` to start the application.
+11 
+12 ## Example
+
+File: console.log(taskManager.listTasks());
+1 ## API Documentation
+2 
+3 ### TaskManager
+4 
+5 #### addTask(title: string, description: string): void
+6 
+7 Adds a task to the task list.
+8 
+9 - `title`: The title of the task.
+10 - `description`: The description of the task.
+11 
+12 #### listTasks(): Task[]
+13 
+14 Lists all tasks.
+15 
+16 - Returns: An array of tasks.
+17 
+18 ## Contributing
+19 
+20 Contributions are welcome! Please feel free to submit a pull request.
+21 
+22 ## License
+23 
+24 This project is licensed under the MIT License.
+25 
+26 ## Contact
+27 
+28 Your Name <your.email@example.com>
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+#!/bin/bash
+
+# Install dependencies
+npm install
+
+# Build the TypeScript project
+npm run build
+
+# Start the application
+npm start &
+```
+
+2024-04-28T01:19:22.083234
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: package.json
+1 {
+2   "name": "codebase-documentation-generator",
+3   "version": "1.0.0",
+4   "description": "A tool to generate codebase documentation and interact with OpenAI API for content creation.",
+5   "main": "dist/index.js",
+6   "scripts": {
+7     "build": "tsc",
+8     "start": "node dist/index.js"
+9   },
+10   "author": "Your Name <your.email@example.com>",
+11   "license": "MIT",
+12   "dependencies": {
+13     "axios": "^0.27.2",
+14     "typescript": "^4.7.4"
+15   },
+16   "devDependencies": {
+17     "@types/node": "^18.0.0"
+18   }
+19 }
+
+File: tsconfig.json
+1 {
+2   "compilerOptions": {
+3     "target": "es6",
+4     "module": "commonjs",
+5     "outDir": "./dist",
+6     "strict": true,
+7     "esModuleInterop": true
+8   },
+9   "include": ["src/**/*"],
+10   "exclude": ["node_modules", "**/*.spec.ts"]
+11 }
+
+File: src/index.ts
+1 import { generateDocumentation } from './documentationGenerator';
+2 import { sendOpenAIRequest } from './openAIAdapter';
+3 
+4 async function main() {
+5   const documentationStructure = generateDocumentation();
+6   console.log('Generated Documentation Structure:', documentationStructure);
+7 
+8   // Mock sending a request to OpenAI for documentation content
+9   const exampleFunctionDescription = await sendOpenAIRequest('Describe a function that adds two numbers.');
+10   console.log('OpenAI API Response:', exampleFunctionDescription);
+11 }
+12 
+13 main().catch(console.error);
+
+File: src/documentationGenerator.ts
+1 // Generates a basic structure for codebase documentation
+2 export function generateDocumentation(): string {
+3   return `
+4 # Project Name
+5 
+6 ## Description
+7 
+8 ## Installation Instructions
+9 
+10 ## Example/Tutorial
+11 
+12 ## Issue Tracker
+13 
+14 ## API Documentation
+15 
+16 ### Functions
+17 
+18 #### Function Name
+19 
+20 - Description:
+21 - Parameters:
+22 - Returns:
+23 
+24 ## Code Documentation
+25 
+26 ## Coding Conventions
+27 
+28 ## Contributor Information
+29 
+30 ## Citation Information
+31 
+32 ## Licensing Information
+33 
+34 For more information, contact [Your Email](mailto:your.email@example.com).
+35 
+36 ## Version History
+37 `;
+38 }
+
+File: src/openAIAdapter.ts
+1 import axios from 'axios';
+2 
+3 // Mock function to simulate sending requests to OpenAI API
+4 export async function sendOpenAIRequest(prompt: string): Promise<string> {
+5   // In a real application, replace this with actual API request logic.
+6   console.log(`Sending request to OpenAI with prompt: ${prompt}`);
+7   return Promise.resolve(`This is a mocked response for the prompt: ${prompt}`);
+8 }
+
+File: README.md
+1 # Codebase Documentation Generator
+2 
+3 This project generates a basic structure for codebase documentation and interacts with the OpenAI API to create content.
+4 
+5 ## Installation
+6 
+7 Run `npm install` to install the required dependencies.
+8 
+9 ## Usage
+10 
+11 Build the project with `npm run build` and then start the application with `npm start`.
+12 
+13 ## Contributing
+14 
+15 Contributions are welcome. Please open an issue first to discuss what you would like to change.
+16 
+17 ## License
+18 
+19 MIT
+20 
+21 ## Contact
+22 
+23 Your Name <your.email@example.com>
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+npm install
+npm run build &
+npm start
+```
