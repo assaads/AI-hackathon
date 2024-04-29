@@ -1,3 +1,10 @@
+#!/bin/bash
+
+# Install dependencies
 npm install
-npm run build &
-npm start
+
+# Build the project
+npm run build
+
+# Start the server in the background
+npm run start &

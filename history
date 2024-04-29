@@ -3,5 +3,46 @@ the project holds the front-end framework for code documentation
 - create a mechanism using typescript to read from a certain code base then parse the code from all folders and files in that code base based on the coding language
 - do the instruction above in a way that will be utilized to send all the codebase info to an api. The information will need to be sent in a way that knows in which file and folder each code piece belongs
 
+- after the source code is parsed, send it to an the OpenAI API and ask it to generate a documentation for the whole code base. 
 
+- the documentation should be based on these principles:
+Include a README file that contains
+A brief description of the project
+Installation instructions
+A short example/tutorial
+Allow issue tracker for others
+Write an API documentation
+What a function does
+What are the function's parameters or arguments are
+What a function returns
+Document your code
+Apply coding conventions, such as file organization, comments, naming conventions, programming practices, etc.
+Include information for contributors
+Include citation information
+Include licensing information
+Link to your e-mail address at the end
+List all the versions of the files along with the major edits you did in each version
 
+- use the information to create folder and files appropriately as illustrated in the folder 'docs'. each folder in 'docs' is a section and each file in it is a page. sections can be nested into each otehr when appropriate. the file format should be the same as the ones found in the folder 'docs' as well.
+
+- use typescript to implement everything
+
+use typescript for the intruction below and modify the codebase to implement it
+
+- implement the logic in order to form the codebase documentation based on these principles and send the openAI api the requests accordingly:
+[Include a README file that contains,
+A brief description of the project,
+Installation instructions,
+A short example/tutorial,
+Allow issue tracker for others,
+Write an API documentation,
+What a function does,
+What are the function's parameters or arguments are,
+What a function returns,
+Document your code,
+Apply coding conventions, such as file organization, comments, naming conventions, programming practices, etc.,
+Include information for contributors,
+Include citation information,
+Include licensing information,
+Link to your e-mail address at the end,
+List all the versions of the files along with the major edits you did in each version]

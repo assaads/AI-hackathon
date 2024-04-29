@@ -1,19 +1,22 @@
 {
-  "name": "codebase-documentation-generator",
+  "name": "source-code-api",
   "version": "1.0.0",
-  "description": "A tool to generate codebase documentation and interact with OpenAI API for content creation.",
+  "description": "API for processing source code submissions and returning structured information.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
   },
-  "author": "Your Name <your.email@example.com>",
-  "license": "MIT",
   "dependencies": {
-    "axios": "^0.27.2",
-    "typescript": "^4.7.4"
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0"
-  }
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.37",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "license": "MIT"
 }

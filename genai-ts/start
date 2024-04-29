@@ -1,13 +1,12 @@
-This will read all source files in the `src` directory, send them to the OpenAI API, and generate documentation in the `docs` directory.
+Make a POST request to `/process` with a JSON body containing the `sourceCode` field.
 
-## Contributing
+## API Documentation
 
-Contributions are welcome! Please open an issue or submit a pull request.
+POST `/process`
 
-## License
+- **Body**: `{ sourceCode: string }`
+- **Response**: A JSON object containing the processed information.
+
+## Licensing
 
 This project is licensed under the MIT License.
-
-## Contact
-
-For questions or comments, please email me at [your-email@example.com](mailto:your-email@example.com).

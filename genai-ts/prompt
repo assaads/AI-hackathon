@@ -1,19 +1,12 @@
 use typescript for the intruction below and modify the codebase to implement it
 
-- implement the logic in order to form the codebase documentation based on these principles and send the openAI api the requests accordingly:
-[Include a README file that contains,
-A brief description of the project,
+Once the source code is sent to the AI API I would like it to return the following (each of the following would be executed with one API call):
+{Include a README file that contains A brief description of the project,
 Installation instructions,
 A short example/tutorial,
-Allow issue tracker for others,
 Write an API documentation,
 What a function does,
 What are the function's parameters or arguments are,
 What a function returns,
-Document your code,
-Apply coding conventions, such as file organization, comments, naming conventions, programming practices, etc.,
-Include information for contributors,
-Include citation information,
 Include licensing information,
-Link to your e-mail address at the end,
-List all the versions of the files along with the major edits you did in each version]
+List all the versions of the files along with the major edits you did in each version}

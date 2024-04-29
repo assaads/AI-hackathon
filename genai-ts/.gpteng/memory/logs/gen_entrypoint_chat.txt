@@ -1201,3 +1201,152 @@ npm install
 npm run build &
 npm start
 ```
+
+2024-04-29T14:11:44.301567
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: package.json
+1 {
+2   "name": "source-code-api",
+3   "version": "1.0.0",
+4   "description": "API for processing source code submissions and returning structured information.",
+5   "main": "dist/index.js",
+6   "scripts": {
+7     "build": "tsc",
+8     "start": "node dist/index.js",
+9     "dev": "ts-node src/index.ts"
+10   },
+11   "dependencies": {
+12     "express": "^4.17.1",
+13     "body-parser": "^1.19.0"
+14   },
+15   "devDependencies": {
+16     "@types/express": "^4.17.11",
+17     "@types/node": "^14.14.37",
+18     "ts-node": "^9.1.1",
+19     "typescript": "^4.2.4"
+20   },
+21   "license": "MIT"
+22 }
+
+File: tsconfig.json
+1 {
+2   "compilerOptions": {
+3     "target": "es6",
+4     "module": "commonjs",
+5     "outDir": "./dist",
+6     "strict": true,
+7     "esModuleInterop": true
+8   },
+9   "include": ["src/**/*"],
+10   "exclude": ["node_modules", "**/*.spec.ts"]
+11 }
+
+File: src/index.ts
+1 import express from 'express';
+2 import bodyParser from 'body-parser';
+3 import { processSourceCode } from './sourceCodeProcessor';
+4 
+5 const app = express();
+6 const port = 3000;
+7 
+8 app.use(bodyParser.json());
+9 
+10 app.post('/process', (req, res) => {
+11   const { sourceCode } = req.body;
+12   const result = processSourceCode(sourceCode);
+13   res.json(result);
+14 });
+15 
+16 app.listen(port, () => {
+17   console.log(`Server running at http://localhost:${port}`);
+18 });
+
+File: src/sourceCodeProcessor.ts
+1 export function processSourceCode(sourceCode: string): any {
+2   // Placeholder for source code processing logic
+3   // This function should analyze the source code and extract the required information
+4   return {
+5     description: "A brief description of the project.",
+6     installationInstructions: "Installation instructions.",
+7     example: "A short example/tutorial.",
+8     apiDocumentation: "API documentation.",
+9     functionDetails: [
+10       {
+11         functionName: "ExampleFunction",
+12         parameters: "Function parameters or arguments.",
+13         returns: "What the function returns."
+14       }
+15     ],
+16     licensingInformation: "Licensing information.",
+17     versionHistory: [
+18       {
+19         version: "1.0.0",
+20         majorEdits: "List of major edits."
+21       }
+22     ]
+23   };
+24 }
+
+File: README.md
+1 # Source Code API
+2 
+3 This project provides an API for processing source code submissions and returning structured information.
+4 
+5 ## Installation
+6 
+7 To install the dependencies, run:
+
+File: install
+1 ## Usage
+2 
+3 Start the server with:
+
+File: start
+1 Make a POST request to `/process` with a JSON body containing the `sourceCode` field.
+2 
+3 ## API Documentation
+4 
+5 POST `/process`
+6 
+7 - **Body**: `{ sourceCode: string }`
+8 - **Response**: A JSON object containing the processed information.
+9 
+10 ## Licensing
+11 
+12 This project is licensed under the MIT License.
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+#!/bin/bash
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Start the server in the background
+npm run start &
+```
