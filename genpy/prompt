@@ -1,0 +1,3 @@
+code the following in python:
+
+when the code is sent to the openAI API for documentation, I would like it to return the documentation in the same format as the file 'example.md'. the number for # in from of a title is equivalent to the heading number. for example: ##title is title writen in heading2 format
