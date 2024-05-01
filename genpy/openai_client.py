@@ -25,7 +25,9 @@ def generate_documentation(file_content):
     Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.
     Writing a good guide requires thinking about what your users are trying to do. (this is a random text, text is used an normal)
 
-    - bullet point is used as such as well"""
+    - bullet point is used as such as well
+    Links are done this way: [name](link itself). for example: [about reference](https://diataxis.fr/reference/)
+    """
 
     # response = client.completions.create(model="gpt-4-1106-preview",
     # prompt=myprompt,
