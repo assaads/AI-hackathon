@@ -6,7 +6,7 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   integrations: [starlight({
-    title: 'My Docs',
+    title: 'My Gemini Documentation',
     social: {
       github: 'https://github.com/withastro/starlight'
     }

@@ -1,6 +1,6 @@
 {
   "Getting Started": "This section should guide a new user on how to install, set up, and quickly get started with using the project. It can include a quick start guide, installation instructions, and basic usage examples.",
-  "Tutorials": "Tutorials provide step-by-step guides to help users understand how to use the different features of your project. They should be practical and easy to follow.",
+  "Tutorials": "provide step-by-step guides to help users understand how to use the different features of the current project. They should be practical and easy to follow.",
   "How-To Guides": "These are more detailed than tutorials and explain how to perform specific tasks with the project. They should be clear, concise, and instructive.",
   "Technical Reference": {
     "Project Architecture": {
@@ -11,8 +11,8 @@
         "Security": "Create one or more Architectural diagrams in ASCII characters that indicate any security measures in place, such as firewalls, authentication systems, encryption, etc."
     },
     "API References": "This is where you document all the APIs in your codebase. For each API, you should include its purpose, the request and response formats, any headers or parameters needed, and example requests and responses.",
-    "Class/Module Documentation": "For each class or module in your codebase, you should document its purpose, its methods and properties, and any important details about its implementation. This can be done using tools like Javadoc for Java or Sphinx for Python.",
-    "Function/Method Documentation": "Similar to class/module documentation, each function or method in your codebase should be documented. This includes its purpose, its parameters and return values, and any exceptions it might throw.",
+    "Class & Module Documentation": "For each class or module in your codebase, you should document its purpose, its methods and properties, and any important details about its implementation. This can be done using tools like Javadoc for Java or Sphinx for Python.",
+    "Function & Method Documentation": "Similar to class/module documentation, each function or method in your codebase should be documented. This includes its purpose, its parameters and return values, and any exceptions it might throw.",
     "Database Schema": "This includes the tables in your database, the columns in each table, the data types of each column, and any relationships between tables.",
     "Configuration Files": "you should document what each configuration option does and provide examples of how to use them.",
     "Environment Variables": "you should document what each one does, how to set them, and any default values.",

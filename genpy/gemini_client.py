@@ -31,13 +31,20 @@ def define_format():
     prompt= """
     I would like you to act as a professional/expert developer and technical architect.
     I am about to send you the full codebase of a project. After I do I will start giving you requests regarding the code, mainly aimed at creating documentation for the codebase.
-    Everytime I request something from you I would like you to give me the answer in the format below (even if I asked you about a documentation regarding the code that you don't find or deem not applicable in the specific source code I would still like you to give me you answer in the following format): 
+    Everytime I request something from you I would like you to give me the answer in the format below (even if I asked you about a documentation regarding the code that you don't find or deem not applicable in the specific source code I would still like you to give me you answer in the following format without anything else before or after in the chat): 
     ---
     title: Example Guide
     description: A guide in my new Starlight docs site.
     ---
 
-    * the format always starts with the title and description between "---" as above *
+    don't include anything before this:
+    "
+    ---
+    title: Example Guide
+    description: A guide in my new Starlight docs site.
+    ---
+    " 
+    as the page always starts with it.
 
     use headings as shown below:
     # Heading1
@@ -78,7 +85,7 @@ def send_codebase(codebase: str):
 
 def request_documentation(documentation_subject: str):
     prompt= f"""
-    In the format requested previouly (even if I asked you to generate a documentation that you don't find or deem not applicable in the specific source code I would still like you to give me you answer in the format requested previouly) and based on the codebase sent, please create a documentation document for the following section and it's description:
+    In the format requested previouly (even if I asked you to generate a documentation that you don't find or deem not applicable in the specific source code I would still like you to give me you answer in the format requested previouly, and don't add any text before or after that's not in the format in your answer) and based on the codebase sent, please create a documentation document for the following section and it's description:
     {documentation_subject}
     """
     text_response = []
