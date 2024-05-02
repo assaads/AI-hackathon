@@ -1,6 +1,6 @@
 import os
 from file_reader import read_files_from_directory
-from gemini_client import generate_documentation
+from gemini_client import generate_documentation, check_context
 
 def main():     
     # Get the codebase directory from the user
@@ -26,6 +26,10 @@ def main():
             doc_file.write(documentation)
         
         print(f"Documentation for {os.path.basename(file_path)} saved to {doc_file_path}")
+    
+    # print(check_context())
+
+    
 
 if __name__ == "__main__":
     main()
