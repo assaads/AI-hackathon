@@ -1,6 +1,6 @@
 import os
 from file_reader import read_files_from_directory
-from openai_client import generate_documentation
+from gemini_client import generate_documentation
 
 def main():     
     # Get the codebase directory from the user
