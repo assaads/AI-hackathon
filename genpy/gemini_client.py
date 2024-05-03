@@ -46,6 +46,16 @@ def define_format():
     " 
     as the page always starts with it. Also, don't add a heading1 title after this section again but start directly with the content after.
 
+    Moreover if requested to create a page in a different language, only what comes after "title:" and "description:" is in a different language for the start of the page.
+    for example:
+    for french:
+    "
+    ---
+    title: Bonjour 
+    description: comment ca va
+    ---
+    " 
+
     use headings as shown below:
     # Heading1
     ## Heading2
@@ -84,9 +94,13 @@ def send_codebase(codebase: str):
     print("Finished sending the codebase to the AI")
     return "".join(text_response)
 
-def request_documentation(documentation_subject: str):
+def request_documentation(documentation_subject: str, language: str):
+    add_language=""
+    if language!="":
+        add_language= f" in the {language} language"
+    
     prompt= f"""
-    In the format requested previouly (even if I asked you to generate a documentation that you don't find or deem not applicable in the specific source code I would still like you to give me you answer in the format requested previouly, and don't add any text before or after that's not in the format in your answer) and based on the codebase sent, please create a documentation document for the following section and it's description:
+    In the format requested previouly (even if I asked you to generate a documentation that you don't find or deem not applicable in the specific source code I would still like you to give me you answer in the format requested previouly, and don't add any text before or after that's not in the format in your answer) and based on the codebase sent, please create a documentation document for the following section and it's description{add_language}:
     {documentation_subject}
     """
     text_response = []
