@@ -71,7 +71,7 @@ def update_config(selected_languages):
     
     
     # Specify the directory path
-    directory_path = "./gemi/"
+    directory_path = "../gemi/"
 
     # Read the original code from the file
     with open(f'{directory_path}/astro.config.mjs', 'r') as f:
