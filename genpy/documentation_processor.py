@@ -1,6 +1,7 @@
 import os
 import json
 from gemini_client import request_documentation
+import time
 
 def handler(project_name: str):
     # Read the JSON from a file
@@ -25,17 +26,19 @@ def process_item(key, value):
     return request_documentation(section_topic)
 
 def process_dict(input_dict, process_func, output_dir):
+    prefix = 1
     for key, value in input_dict.items():
         if isinstance(value, dict):
             # If the value is a nested dictionary, create a new directory and process the nested dictionary
-            new_dir = os.path.join(output_dir, key)
+            new_dir = os.path.join(output_dir, f"{key}")
             os.makedirs(new_dir, exist_ok=True)
             process_dict(value, process_func, new_dir)
         else:
             # If the value is not a dictionary, process the key-value pair and write the result into a .md file
             result = process_func(key, value)
-            with open(os.path.join(output_dir, f"{key}.md"), 'w', encoding='utf-8') as f:
+            with open(os.path.join(output_dir, f"{prefix}-{key}.md"), 'w', encoding='utf-8') as f:
                 f.write(result)
+            prefix += 1
 
 
 

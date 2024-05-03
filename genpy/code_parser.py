@@ -24,8 +24,7 @@ def generate_combined_file(codebase_directory):
 
     # Check if the number of lines exceeds the limit
     if num_lines >= 29000:
-        # raise ValueError(f"The combined output has {num_lines} lines, which exceeds the limit of 29000 lines.")
-        print (f"The combined output has {num_lines} lines, which exceeds the limit of 29000 lines.")
+        raise ValueError(f"The combined output of the codebase has {num_lines} lines, which exceeds the limit of 29000 lines.")
 
     # Write the combined content into the output file
     with open(output_file_path, 'w', encoding='ISO-8859-1') as output_file:

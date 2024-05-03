@@ -4,13 +4,13 @@ import vertexai
 from vertexai.generative_models import GenerativeModel, Part
 import vertexai.preview.generative_models as generative_models
 
-vertexai.init(project="ornate-charter-422015", location="us-central1")
+vertexai.init(project="my-second-project-422200", location="us-central1")
 model = GenerativeModel(
 "gemini-1.5-pro-preview-0409",
 )
 generation_config = {
     "max_output_tokens": 8192,
-    "temperature": 1,
+    "temperature": 0.8,
     "top_p": 0.95,
 }
 safety_settings = {
@@ -44,13 +44,14 @@ def define_format():
     description: A guide in my new Starlight docs site.
     ---
     " 
-    as the page always starts with it.
+    as the page always starts with it. Also, don't add a heading1 title after this section again but start directly with the content after.
 
     use headings as shown below:
     # Heading1
     ## Heading2
     ### Heading3
     #### Heading4
+
 
     Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.
     Writing a good guide requires thinking about what your users are trying to do. (this is a random text, text is used an normal)
@@ -94,7 +95,7 @@ def request_documentation(documentation_subject: str):
       safety_settings=safety_settings)
     for chunk in responses:
         text_response.append(chunk.text)
-    print(f"Finished generating documentation for {documentation_subject}")
+    # print(f"Finished generating documentation for {documentation_subject}")
     return "".join(text_response)
 
 
