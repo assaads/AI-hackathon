@@ -12,6 +12,8 @@ def main():
     # Get the name of the project
     project_name = input("Enter the name of the project: ")
 
+    copy_directory()
+
     user_choice = input("Do you want to choose multiple languages (the default language is English)? (yes/no): ").lower()
     if user_choice == 'yes' or user_choice == 'y':
         languages_chosen=choose_languages()

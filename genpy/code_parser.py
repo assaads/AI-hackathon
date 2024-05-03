@@ -1,11 +1,6 @@
 import os
 
 def generate_combined_file(codebase_directory):
-    # Define the codebase and output file paths
-    # codebase_directory = input("Enter the path to the codebase directory: ")
-    # output_file_path = input("Enter the path to the output file: ")
-    # output_file_path = os.path.join(output_file_path, 'codebase_output.txt')
-    # output_file_path = codebase_directory
 
     # Initialize an empty string to store the combined content
     combined_content = ""
@@ -15,9 +10,13 @@ def generate_combined_file(codebase_directory):
         for file in files:
             file_path = os.path.join(root, file)
             # Open each file and append its contents to the combined content string
+        try:
             with open(file_path, 'r', encoding='ISO-8859-1') as input_file:
                 combined_content += f"\n\n# File: {file_path}\n\n"
                 combined_content += input_file.read()
+        except Exception as e:
+            print(f"Could not read file {file_path}. Error: {e}")
+
 
     # Count the number of lines in the combined output
     num_lines = combined_content.count('\n')
